@@ -112,6 +112,7 @@ onMounted(() => {});
     font-size: 3rem;
   }
   color: whitesmoke;
+  font-weight: bold;
   animation: textDisplay 2s linear;
 }
 </style>
