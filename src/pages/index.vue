@@ -15,21 +15,33 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import WELCOME_TEXT from "@/assets/text/welcome";
-const welcomeData = ref(WELCOME_TEXT);
-const clickCount = ref(0);
-const displayNow = computed(() => welcomeData.value.mainText[clickCount.value]);
-const overlayState = computed(() =>
-  clickCount.value > welcomeData.value.mainText.length - 1 ? false : true
-);
-const displayBoard = ref();
-const switchBoard = () => {
-  displayBoard.value.style.animationName =
-    ++clickCount.value % 2 === 0 ? "textDisplay" : "resetTextDisplay";
-};
-
-onMounted(() => {});
+export default defineComponent({
+  name: "welcome",
+  setup() {
+    const welcomeData = ref(WELCOME_TEXT);
+    const clickCount = ref(0);
+    const displayNow = computed(
+      () => welcomeData.value.mainText[clickCount.value]
+    );
+    const overlayState = computed(() =>
+      clickCount.value > welcomeData.value.mainText.length - 1 ? false : true
+    );
+    const displayBoard = ref();
+    const switchBoard = () => {
+      displayBoard.value.style.animationName =
+        ++clickCount.value % 2 === 0 ? "textDisplay" : "resetTextDisplay";
+    };
+    onMounted(() => {});
+    return {
+      displayNow,
+      overlayState,
+      switchBoard,
+      displayBoard,
+    };
+  },
+});
 </script>
 
 <style lang="scss">
