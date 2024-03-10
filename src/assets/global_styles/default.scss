@@ -1,5 +1,13 @@
 $bgColor: rgb(99, 162, 187);
 $theme_1: rgb(68, 205, 229);
 $theme_2: rgb(43, 225, 158);
+$theme_3: #5d4037;
 $largeDeviceWidth: 1920px;
 $largeDeviceHeight: 1080px;
+$breakPoints: (
+  xs: 0,
+  sm: 600px,
+  md: 960px,
+  lg: 1264px,
+  xl: 1904px,
+) !default;

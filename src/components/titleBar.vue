@@ -13,11 +13,11 @@
 .titleBar {
   image-rendering: pixelated;
   @media screen and (orientation: landscape) {
-    height: 50%;
-    margin-top: 2%;
+    height: 60%;
+    margin-top: 2.5%;
   }
   @media screen and (orientation: portrait) {
-    height: 20%;
+    height: 30%;
     margin-top: 25%;
   }
 }
