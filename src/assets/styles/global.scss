@@ -1,5 +1,4 @@
 @import "./default.scss";
-
 html,
 body,
 #__nuxt {
@@ -9,5 +8,10 @@ body,
 }
 @font-face {
   font-family: "myFont";
-  src: url("../assets/fonts/myPixelFont.ttf") format("truetype");
+  src: url("@/assets/fonts/myPixelFont.ttf") format("truetype");
+}
+@mixin alignFather {
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }

@@ -1,44 +1,56 @@
 <template>
   <div class="main">
     <div class="background">
-      <!-- 背景音乐 -->
-
       <!-- 标题 -->
       <title-bar v-if="!overlayState" class="theTitleBar" />
-      <!-- 按钮显示区（栅格系统） -->
-      <transition name="buttons">
-        <div v-if="!overlayState" class="buttonZone">
-          <v-container>
-            <v-row align-content="center" justify="space-around">
-              <v-col
-                cols="8"
-                sm="2"
-                md="2"
-                lg="2"
-                xl="2"
-                xxl="2"
-                class="d-flex justify-center align-center"
-              >
-                <normal-button style="border: none" class="button"
-                  >注册</normal-button
-                ></v-col
-              >
-              <v-col
-                cols="8"
-                sm="2"
-                md="2"
-                lg="2"
-                xl="2"
-                xxl="2"
-                class="d-flex justify-center align-center"
-                ><normal-button style="border: none" class="button"
-                  >进屋</normal-button
-                ></v-col
-              >
-            </v-row>
-          </v-container>
-        </div>
-      </transition>
+      <v-dialog width="40%">
+        <!-- 对话框 -->
+        <template v-slot:activator="{ props: activeBtns }">
+          <!-- 按钮显示区（栅格系统） -->
+          <transition name="buttons">
+            <div v-if="!overlayState" class="buttonZone">
+              <v-container>
+                <v-row align-content="center" justify="space-around">
+                  <v-col
+                    cols="8"
+                    sm="2"
+                    md="2"
+                    lg="2"
+                    xl="2"
+                    xxl="2"
+                    class="d-flex justify-center align-center"
+                  >
+                    <normal-button
+                      style="border: none"
+                      class="button"
+                      v-bind="activeBtns"
+                      >注册</normal-button
+                    ></v-col
+                  >
+                  <v-col
+                    cols="8"
+                    sm="2"
+                    md="2"
+                    lg="2"
+                    xl="2"
+                    xxl="2"
+                    class="d-flex justify-center align-center"
+                    ><normal-button
+                      style="border: none"
+                      class="button"
+                      v-bind="activeBtns"
+                      >登录</normal-button
+                    ></v-col
+                  >
+                </v-row>
+              </v-container>
+            </div>
+          </transition>
+        </template>
+        <template v-slot:default>
+          <normal-menu class="dialog"> </normal-menu>
+        </template>
+      </v-dialog>
     </div>
     <!-- 文字遮罩 -->
     <v-overlay
@@ -70,6 +82,7 @@ export default defineComponent({
     // );
     const overlayState = ref(true);
     const displayBoard = ref();
+    // const isOpenDialog = ref(false);
 
     const switchBoard = () => {
       displayBoard.value.style.animationName =
@@ -110,7 +123,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../assets/global_styles/global";
 @keyframes enterDisplay {
   from {
     opacity: 0%;
@@ -158,6 +170,40 @@ export default defineComponent({
     transform: rotate(0deg);
   }
 }
+@media screen and (min-width: map-get($breakPoints,xs)) {
+  .theTitleBar {
+    height: 60%;
+  }
+  .buttonZone {
+    height: 40%;
+    .button {
+      width: 40%;
+    }
+  }
+}
+@media screen and (min-width: map-get($breakPoints,sm)) {
+  .theTitleBar {
+    height: 75%;
+  }
+  .buttonZone {
+    height: 25%;
+    .button {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (min-width: map-get($breakPoints,md)) {
+  .theTitleBar {
+    height: 75%;
+  }
+  .buttonZone {
+    height: 25%;
+    .button {
+      width: 90%;
+    }
+  }
+}
 .main {
   height: 100%;
   width: 100%;
@@ -199,40 +245,6 @@ export default defineComponent({
     //     }
     //   }
     // }
-    @media screen and (min-width: map-get($breakPoints,xs)) {
-      .theTitleBar {
-        height: 60%;
-      }
-      .buttonZone {
-        height: 40%;
-        .button {
-          width: 40%;
-        }
-      }
-    }
-    @media screen and (min-width: map-get($breakPoints,sm)) {
-      .theTitleBar {
-        height: 75%;
-      }
-      .buttonZone {
-        height: 25%;
-        .button {
-          width: 90%;
-        }
-      }
-    }
-
-    @media screen and (min-width: map-get($breakPoints,md)) {
-      .theTitleBar {
-        height: 75%;
-      }
-      .buttonZone {
-        height: 25%;
-        .button {
-          width: 90%;
-        }
-      }
-    }
   }
 }
 .displayBoard {

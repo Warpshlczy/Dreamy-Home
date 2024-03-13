@@ -4,6 +4,7 @@
       @click="handler"
       block
       class="btn"
+      v-bind="value"
       width="100%"
       height="100%"
       elevation="0"
@@ -16,11 +17,11 @@
 
 <script lang="ts">
 export default defineComponent({
-  props: ["handler"],
+  props: ["handler", "value"],
   name: "normalButton",
-  setup(props) {
+  setup() {
     const buttonSelf = ref();
-    const handler = props.handler;
+
     nextTick(() => {
       (buttonSelf.value as HTMLElement).style.height =
         (buttonSelf.value as HTMLElement).clientWidth * (19 / 26) + "px";
@@ -29,7 +30,6 @@ export default defineComponent({
     });
 
     return {
-      handler,
       buttonSelf,
     };
   },
@@ -37,7 +37,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/global_styles/global";
 .btn {
   image-rendering: pixelated;
   background: url("../assets/img/button.png") no-repeat center;

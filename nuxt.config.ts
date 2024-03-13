@@ -18,11 +18,12 @@ export default defineNuxtConfig({
     port: 8081,
     host: "0.0.0.0",
   },
+
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          addtionalData: '@import "@/assets/scss/main.scss";',
+          additionalData: '@import "@/assets/styles/global.scss";',
         },
       },
     },
