@@ -1,0 +1,4 @@
+dist
+.nuxt
+.vscode
+nuxt.config.ts

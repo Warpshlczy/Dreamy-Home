@@ -1,0 +1,47 @@
+@keyframes enterDisplay {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: (100%);
+  }
+}
+@keyframes resetEnterDisplay {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: (100%);
+  }
+}
+@keyframes titleBarIn {
+  0% {
+    opacity: 0%;
+    transform: scale(0);
+  }
+  75% {
+    opacity: 90%;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: (100%);
+    transform: scale(1);
+  }
+}
+@keyframes titleBarContinue {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

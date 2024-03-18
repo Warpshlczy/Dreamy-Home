@@ -23,10 +23,10 @@ export default defineComponent({
     const buttonSelf = ref();
 
     nextTick(() => {
-      (buttonSelf.value as HTMLElement).style.height =
-        (buttonSelf.value as HTMLElement).clientWidth * (19 / 26) + "px";
-      (buttonSelf.value as HTMLElement).style.fontSize =
-        (buttonSelf.value as HTMLElement).clientWidth * 0.1 + "px";
+      buttonSelf.value.style.height =
+        buttonSelf.value.clientWidth * (19 / 26) + "px";
+      buttonSelf.value.style.fontSize =
+        buttonSelf.value.clientWidth * 0.1 + "px";
     });
 
     return {
@@ -43,7 +43,6 @@ export default defineComponent({
   background-size: contain;
   border-radius: 23%;
   font-size: 3em;
-  font-family: "myFont";
   font-weight: bold;
   color: $theme_3;
   :hover {
