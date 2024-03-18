@@ -1,6 +1,4 @@
 <script lang="ts">
-import { useDisplay } from "vuetify";
-import { defineComponent, ref, nextTick } from "vue";
 export default defineComponent({
   props: ["customised"],
   name: "normal-Menu",

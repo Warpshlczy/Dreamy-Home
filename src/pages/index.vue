@@ -20,7 +20,7 @@
               >
                 <!-- 注册按钮+注册显示框 -->
                 <v-dialog :width="dialogWidth">
-                  <template v-slot:activator="{ props: activeBtns }">
+                  <template #activator="{ props: activeBtns }">
                     <normal-button
                       style="border: none"
                       class="button"
@@ -28,7 +28,7 @@
                       >注册</normal-button
                     >
                   </template>
-                  <template #default>
+                  <template #default="{ isActive }">
                     <normal-menu class="dialog" customised="true"
                       ><v-card-item class="dialogTitle justify-center"
                         >新访客登记处</v-card-item
@@ -43,16 +43,17 @@
                             variant="solo"
                             bg-color="rgb(232,207,166)"
                             label="昵称"
+                            maxlength="10"
+                            counter
+                            :rules="[
+                              (value) => !!value || '快点告诉人家名字了啦qwq',
+                            ]"
                             hint="亲爱的旅行者，请告诉我您的名字！"
                             ><template #prepend
                               ><v-icon x-large
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 22 22"
-                                >
-                                  <path
-                                    d="M9 3H13V4H14V5H15V9H14V10H13V11H9V10H8V9H7V5H8V4H9V3M10 8V9H12V8H13V6H12V5H10V6H9V8H10M7 12H15V13H17V14H18V15H19V19H3V15H4V14H5V13H7V12M6 16H5V17H17V16H16V15H14V14H8V15H6V16Z"
-                                  /></svg></v-icon></template
+                                ><svg-icon
+                                  icon="user"
+                                ></svg-icon></v-icon></template
                           ></v-text-field>
                         </div>
                         <div class="dialogInput justify-center d-flex">
@@ -62,37 +63,42 @@
                             variant="solo"
                             bg-color="rgb(232,207,166)"
                             label="*许可证ID"
+                            maxlength="8"
+                            counter
                             hint="请出示您的进入许可！（没有可以不填）"
                             ><template #prepend
                               ><v-icon x-large
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 22 22"
-                                >
-                                  <title>tag-text</title>
-                                  <path
-                                    d="M1 2H2V1H11V2H12V3H13V4H14V5H15V6H16V7H17V8H18V9H19V10H20V11H21V13H20V14H19V15H18V16H17V17H16V18H15V19H14V20H13V21H11V20H10V19H9V18H8V17H7V16H6V15H5V14H4V13H3V12H2V11H1V2M3 10H4V11H5V12H6V13H7V14H8V15H9V16H10V17H11V18H13V17H14V16H15V15H16V14H17V13H18V11H17V10H16V9H15V8H14V7H13V6H12V5H11V4H10V3H3V10M14 11H15V13H14V12H13V11H12V10H11V9H10V7H11V8H12V9H13V10H14V11M10 12H11V13H12V15H11V14H10V13H9V12H8V10H9V11H10V12M5 4H7V5H8V7H7V8H5V7H4V5H5V4Z"
-                                  /></svg></v-icon></template
+                                ><svg-icon
+                                  icon="license"
+                                ></svg-icon></v-icon></template
                           ></v-text-field>
                         </div>
                         <div class="dialogInput justify-center d-flex">
                           <v-text-field
+                            type="password"
                             density="compact"
                             class="textField"
                             variant="solo"
                             bg-color="rgb(232,207,166)"
                             label="通行码/密码"
+                            maxlength="16"
+                            :rules="[
+                              (value) =>
+                                /^[\S]{0,}[a-zA-Z]{1,}[\S]{0,}$/.test(value) ||
+                                !value ||
+                                '必须包含至少一位字母哦',
+                              (value) =>
+                                !!value || '不填通行码的话下次不让你进来噢',
+                              (value) =>
+                                (value.length > 6 && value.length < 16) ||
+                                '通行码至少在7位以上、16位以下哦',
+                            ]"
                             hint="请填写属于您的的自定义通行码！"
                             ><template #prepend
-                              ><v-icon x-large
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 22 22"
-                                >
-                                  <title>lock</title>
-                                  <path
-                                    d="M10 12H12V13H13V15H12V16H10V15H9V13H10V12M8 2H14V3H15V4H16V8H17V9H18V19H17V20H5V19H4V9H5V8H6V4H7V3H8V2M9 4V5H8V8H14V5H13V4H9M16 10H6V18H16V10Z"
-                                  /></svg></v-icon></template
+                              ><v-icon x-large>
+                                <svg-icon
+                                  icon="password"
+                                ></svg-icon></v-icon></template
                           ></v-text-field>
                         </div>
                         <div class="dialogInput justify-center d-flex">
@@ -105,14 +111,9 @@
                             hint="请确认您的的自定义通行码！"
                             ><template #prepend
                               ><v-icon x-large
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 22 22"
-                                >
-                                  <title>lock-open</title>
-                                  <path
-                                    d="M10 13H12V14H13V16H12V17H10V16H9V14H10V13M14 2V3H15V4H16V9H17V10H18V20H17V21H5V20H4V10H5V9H14V5H13V4H9V5H8V7H6V4H7V3H8V2H14M16 11H6V19H16V11Z"
-                                  /></svg></v-icon></template
+                                ><svg-icon
+                                  icon="password-on"
+                                ></svg-icon></v-icon></template
                           ></v-text-field>
                         </div>
                       </div>
@@ -120,7 +121,10 @@
                         <normal-button style="border: none" class="dialogButton"
                           >登记</normal-button
                         >
-                        <normal-button style="border: none" class="dialogButton"
+                        <normal-button
+                          style="border: none"
+                          class="dialogButton"
+                          @click="isActive.value = false"
                           >返回</normal-button
                         >
                       </div>
@@ -147,7 +151,7 @@
                       >登录</normal-button
                     >
                   </template>
-                  <template #default>
+                  <template #default="{ isActive }">
                     <normal-menu class="dialog" customised="true"
                       ><v-card-item class="dialogTitle justify-center"
                         >小屋检查站</v-card-item
@@ -165,13 +169,9 @@
                             hint="只通过昵称注册的访客请使用昵称登录哦！"
                             ><template #prepend
                               ><v-icon x-large
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 22 22"
-                                >
-                                  <path
-                                    d="M9 3H13V4H14V5H15V9H14V10H13V11H9V10H8V9H7V5H8V4H9V3M10 8V9H12V8H13V6H12V5H10V6H9V8H10M7 12H15V13H17V14H18V15H19V19H3V15H4V14H5V13H7V12M6 16H5V17H17V16H16V15H14V14H8V15H6V16Z"
-                                  /></svg></v-icon></template
+                                ><svg-icon
+                                  icon="user"
+                                ></svg-icon></v-icon></template
                           ></v-text-field>
                         </div>
 
@@ -185,22 +185,20 @@
                             hint="请验证您的通行码哦！"
                             ><template #prepend
                               ><v-icon x-large
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 22 22"
-                                >
-                                  <title>lock</title>
-                                  <path
-                                    d="M10 12H12V13H13V15H12V16H10V15H9V13H10V12M8 2H14V3H15V4H16V8H17V9H18V19H17V20H5V19H4V9H5V8H6V4H7V3H8V2M9 4V5H8V8H14V5H13V4H9M16 10H6V18H16V10Z"
-                                  /></svg></v-icon></template
+                                ><svg-icon
+                                  icon="password"
+                                ></svg-icon></v-icon></template
                           ></v-text-field>
                         </div>
                       </div>
                       <div class="dialogAction d-flex justify-center">
                         <normal-button style="border: none" class="dialogButton"
-                          >登记</normal-button
+                          >OK!</normal-button
                         >
-                        <normal-button style="border: none" class="dialogButton"
+                        <normal-button
+                          style="border: none"
+                          class="dialogButton"
+                          @click="isActive.value = false"
                           >返回</normal-button
                         >
                       </div>
