@@ -9,7 +9,7 @@
   </svg>
 </template>
 <script lang="ts">
-import { svgs } from "../assets/svg/svgResources";
+import { svgs } from "~/assets/svg/svgResources";
 export default defineComponent({
   name: "svgIcon",
   props: ["icon", "width", "height"],

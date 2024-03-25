@@ -14,7 +14,11 @@
     "nuxt": "^3.10.3",
     "sass": "^1.71.1",
     "vue": "^3.4.19",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "typescript": "^5.4.2",
+    "typescript-eslint": "^7.2.0",
+    "vite-plugin-vuetify": "^2.0.2",
+    "vuetify": "^3.5.7"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.10",

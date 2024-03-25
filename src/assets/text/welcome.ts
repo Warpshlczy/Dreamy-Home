@@ -3,7 +3,7 @@ const WELCOME_TEXT: displayText = {
   subtitle: "成长的休息室",
   mainText: [
     "欢迎你，远道而来的客人！",
-    "当旅行得累了，就来这里歇歇脚吧",
+    "当旅行累了，就来这里歇歇脚吧",
     "这里是梦启小屋！",
   ],
 };
