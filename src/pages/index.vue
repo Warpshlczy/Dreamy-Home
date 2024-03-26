@@ -48,7 +48,7 @@
     >
       <!-- 文字显示 -->
       <div class="displayBoard" ref="displayBoard">
-        {{ displayNow }}
+        {{ cutScene.currentDisplayText }}
       </div></v-overlay
     >
   </div>
@@ -59,41 +59,26 @@ import WELCOME_TEXT from "@/assets/text/welcome";
 import music from "@/assets/musics/Cannon.mp3";
 
 export default defineComponent({
-  name: "welcomePanle",
-
+  name: "welcomePanel",
   setup() {
-    const welcomeData = ref<displayText>(WELCOME_TEXT);
-    const clickCount = ref<number>(0);
-    const overlayState = ref<boolean>(true);
+    // const clickCount = ref<number>(0);
     const displayBoard = ref();
-    const displayNow = computed(
-      () => welcomeData.value.mainText[clickCount.value]
+    // const displayText = computed(() => welcomeData.mainText[clickCount.value]);
+    const overlayState = ref<boolean>(true);
+    const cutScene = ref({
+      textData: WELCOME_TEXT,
+      displayCarrier: displayBoard,
+      currentDisplayText: ref(),
+      orderOfTextNow: 0,
+    });
+    cutScene.value.currentDisplayText = computed(
+      () => cutScene.value.textData.mainText[cutScene.value.orderOfTextNow]
     );
-    // async function submitRegister() {
-    //   const res = await userRegister(
-    //     userRegisterData.name,
-    //     // userRegisterData.invitationCode,
-    //     userRegisterData.password
-    //   );
-    //   console.log(res.data);
-    // }
-    // async function submitLogin() {
-    //   const res = await userLogin(
-    //     userRegisterData.name,
-    //     // userRegisterData.invitationCode,
-    //     userRegisterData.password
-    //   );
-    //   console.log(res.data);
-    // }
-
-    // const overlayState = computed(() =>
-    //   clickCount.value > welcomeData.value.mainText.length - 1 ? false : true
-    // );
-    // const isOpenDialog = ref(false);
-
     const switchBoard = () => {
-      displayBoard.value.style.animationName =
-        ++clickCount.value % 2 === 0 ? "enterDisplay" : "resetEnterDisplay";
+      cutScene.value.displayCarrier.style.animationName =
+        ++cutScene.value.orderOfTextNow % 2 === 0
+          ? "enterDisplay"
+          : "resetEnterDisplay";
     };
     const playBackgroundMusic = (isPlayable: boolean) => {
       if (isPlayable) {
@@ -108,21 +93,19 @@ export default defineComponent({
     };
     watch(overlayState, () => {
       overlayState.value =
-        clickCount.value > welcomeData.value.mainText.length - 1 ? false : true;
+        cutScene.value.orderOfTextNow >
+        cutScene.value.textData.mainText.length - 1
+          ? false
+          : true;
     });
     onUpdated(() => {
       playBackgroundMusic(!overlayState.value);
     });
-    // nextTick(() => {
-    //   playBackgroundMusic(!overlayState.value);
-    // });
     return {
-      welcomeData,
-      clickCount,
-      displayNow,
-      overlayState,
-      switchBoard,
       displayBoard,
+      overlayState,
+      cutScene,
+      switchBoard,
       playBackgroundMusic,
     };
   },
