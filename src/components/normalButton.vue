@@ -23,24 +23,17 @@ export default defineComponent({
   name: "normalButton",
   setup() {
     const buttonSelf = ref();
-
+    onMounted(() => {
+      buttonSelf.value.style.height =
+        buttonSelf.value.clientWidth * (19 / 26) + "px";
+      buttonSelf.value.style.fontSize =
+        buttonSelf.value.clientWidth * 0.1 + "px";
+    });
     onUpdated(() => {
       buttonSelf.value.style.height =
         buttonSelf.value.clientWidth * (19 / 26) + "px";
       buttonSelf.value.style.fontSize =
         buttonSelf.value.clientWidth * 0.1 + "px";
-      // (buttonSelf.value as HTMLElement).setAttribute("width", "100%");
-
-      // (buttonSelf.value as HTMLElement).setAttribute(
-      //   "height",
-      //   `${(buttonSelf.value as HTMLElement).clientWidth * (19 / 26)}`
-      // );
-      // console.log((buttonSelf.value as HTMLElement).style.height);
-
-      // (buttonSelf.value as HTMLElement).setAttribute(
-      //   "fontSize",
-      //   `${(buttonSelf.value as HTMLElement).clientWidth * 0.1}px`
-      // );
     });
 
     return {

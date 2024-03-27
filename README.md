@@ -1,6 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Dreamy-Home
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+:exclamation: THIS APPLICATION IS STILL UNDER DEVELOPMENT
+
+## Progress Now
+
+![img](https://i.ibb.co/4YMfqnD/2024-03-28-011749.jpg)
 
 ## Setup
 
