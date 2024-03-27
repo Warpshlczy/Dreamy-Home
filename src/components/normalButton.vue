@@ -24,7 +24,7 @@ export default defineComponent({
   setup() {
     const buttonSelf = ref();
 
-    nextTick(() => {
+    onUpdated(() => {
       buttonSelf.value.style.height =
         buttonSelf.value.clientWidth * (19 / 26) + "px";
       buttonSelf.value.style.fontSize =
@@ -59,8 +59,8 @@ export default defineComponent({
   font-size: 3em;
   font-weight: bold;
   color: $theme_3;
-  :hover {
-    transform: scale(1.15);
-  }
+}
+.btn:hover {
+  transform: scale(1.15);
 }
 </style>

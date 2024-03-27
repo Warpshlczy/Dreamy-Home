@@ -1,7 +1,8 @@
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 export default defineNuxtConfig({
-  // 输出目录
+  // nuxt的工作路径
   srcDir: "src/",
+  //是否开启dev调试工具
   devtools: { enabled: true },
   build: {
     transpile: ["vuetify"],

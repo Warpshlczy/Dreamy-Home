@@ -130,14 +130,10 @@ export default defineComponent({
   }
 }
 .main {
+  overflow: hidden;
   .background {
     background: url("@/assets/img/HBG.jpg") no-repeat center;
-    @media screen and (orientation: landscape) {
-      background-size: 100% 100%;
-    }
-    @media screen and (orientation: portrait) {
-      background-size: $largeDeviceWidth $largeDeviceHeight;
-    }
+    background-size: $largeDeviceWidth $largeDeviceHeight;
     .theTitleBar {
       animation: titleBarIn 2s ease-out,
         titleBarContinue 8s 2.5s linear infinite;

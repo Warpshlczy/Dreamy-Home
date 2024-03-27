@@ -18,7 +18,7 @@ export default defineComponent({
     const methods = {
       submitUserRegistion: async () => {
         const { data } = await useFetch("/api/user/register");
-        console.log((data.value as any).msg);
+        console.log(data.value);
       },
     };
     return {
@@ -115,15 +115,11 @@ export default defineComponent({
           </div>
           <div class="dialogAction d-flex justify-center">
             <normal-button
-              style="border: none"
               class="dialogButton"
               @click="methods.submitUserRegistion"
               >登记</normal-button
             >
-            <normal-button
-              style="border: none"
-              class="dialogButton"
-              @click="isActive.value = false"
+            <normal-button class="dialogButton" @click="isActive.value = false"
               >返回</normal-button
             >
           </div>
