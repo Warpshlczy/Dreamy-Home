@@ -6,6 +6,13 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
+  //运行时基础配置
+  runtimeConfig: {
+    // 公共api访问地址
+    public: {
+      baseURL: "http://121.40.22.67:8080/api",
+    },
+  },
   // 对components文件夹下的组件进行配置
   components: [
     // 限制components下所有的组件拓展为.vue

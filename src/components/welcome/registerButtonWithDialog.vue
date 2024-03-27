@@ -15,8 +15,15 @@ export default defineComponent({
           return "41%";
       }
     });
+    const methods = {
+      submitUserRegistion: async () => {
+        const { data } = await useFetch("/api/user/register");
+        console.log((data.value as any).msg);
+      },
+    };
     return {
       dialogWidth,
+      methods,
     };
   },
 });
@@ -107,7 +114,10 @@ export default defineComponent({
             </div>
           </div>
           <div class="dialogAction d-flex justify-center">
-            <normal-button style="border: none" class="dialogButton"
+            <normal-button
+              style="border: none"
+              class="dialogButton"
+              @click="methods.submitUserRegistion"
               >登记</normal-button
             >
             <normal-button

@@ -2,11 +2,11 @@
   <div class="main all-full">
     <div class="background all-full">
       <!-- 标题 -->
-      <title-bar v-if="!overlayState" class="theTitleBar" />
+      <title-bar v-if="!textOverlayState" class="theTitleBar" />
 
       <!-- 按钮显示区（栅格系统） -->
       <transition name="buttons">
-        <div class="buttonZone" v-if="!overlayState">
+        <div class="buttonZone" v-if="!textOverlayState">
           <v-container>
             <v-row align-content="center" justify="space-around">
               <v-col
@@ -40,13 +40,13 @@
         </div>
       </transition>
     </div>
-    <!-- 文字遮罩 -->
+    <!-- 文字遮罩层 -->
     <v-overlay
-      v-model="overlayState"
+      v-model="textOverlayState"
       class="align-center justify-center"
-      @click="switchBoard"
+      @click="methods.switchBoard"
     >
-      <!-- 文字显示 -->
+      <!-- 文字显示板 -->
       <div class="displayBoard" ref="displayBoard">
         {{ cutScene.currentDisplayText }}
       </div></v-overlay
@@ -60,11 +60,10 @@ import music from "@/assets/musics/Cannon.mp3";
 
 export default defineComponent({
   name: "welcomePanel",
+
   setup() {
-    // const clickCount = ref<number>(0);
     const displayBoard = ref();
-    // const displayText = computed(() => welcomeData.mainText[clickCount.value]);
-    const overlayState = ref<boolean>(true);
+    const textOverlayState = ref<boolean>(true);
     const cutScene = ref({
       textData: WELCOME_TEXT,
       displayCarrier: displayBoard,
@@ -74,39 +73,40 @@ export default defineComponent({
     cutScene.value.currentDisplayText = computed(
       () => cutScene.value.textData.mainText[cutScene.value.orderOfTextNow]
     );
-    const switchBoard = () => {
-      cutScene.value.displayCarrier.style.animationName =
-        ++cutScene.value.orderOfTextNow % 2 === 0
-          ? "enterDisplay"
-          : "resetEnterDisplay";
+    const methods = {
+      switchBoard: () => {
+        cutScene.value.displayCarrier.style.animationName =
+          ++cutScene.value.orderOfTextNow % 2 === 0
+            ? "enterDisplay"
+            : "resetEnterDisplay";
+      },
+      playBackgroundMusic: (isPlayable: boolean) => {
+        if (isPlayable) {
+          let backgroundMusic = document.createElement("audio");
+          backgroundMusic.src = music;
+          backgroundMusic.play();
+          backgroundMusic.loop = true;
+          console.log("音乐播放");
+        } else {
+          console.log("音乐未播放");
+        }
+      },
     };
-    const playBackgroundMusic = (isPlayable: boolean) => {
-      if (isPlayable) {
-        let backgroundMusic = document.createElement("audio");
-        backgroundMusic.src = music;
-        backgroundMusic.play();
-        backgroundMusic.loop = true;
-        console.log("音乐播放");
-      } else {
-        console.log("音乐未播放");
-      }
-    };
-    watch(overlayState, () => {
-      overlayState.value =
+    watch(textOverlayState, () => {
+      textOverlayState.value =
         cutScene.value.orderOfTextNow >
         cutScene.value.textData.mainText.length - 1
           ? false
           : true;
     });
     onUpdated(() => {
-      playBackgroundMusic(!overlayState.value);
+      methods.playBackgroundMusic(!textOverlayState.value);
     });
     return {
       displayBoard,
-      overlayState,
+      textOverlayState,
       cutScene,
-      switchBoard,
-      playBackgroundMusic,
+      methods,
     };
   },
 });
