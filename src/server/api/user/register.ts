@@ -1,22 +1,26 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
-
-  const result: any = await $fetch("/register", {
+  const requestParams = await readBody(event);
+  console.log(requestParams);
+  const result: any = await $fetch("user/register", {
     baseURL: config.public.baseURL,
+    method: "POST",
+    body: requestParams,
   });
+  console.log(result);
   try {
     if (!result) {
       return "未知错误";
     } else {
       switch (result.code) {
-        case 1: {
+        case 200: {
           return "登记成功！请前往检查站确认信息进入";
         }
-        case 0: {
-          return "注册失败!";
+        case 400: {
+          return "登记失败,用户名或通行码不能为空";
         }
         default: {
-          return "其它失败原因";
+          return "未知错误";
         }
       }
     }

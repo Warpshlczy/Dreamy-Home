@@ -2,13 +2,16 @@
   <div>
     <div ref="buttonSelf">
       <v-btn
-        @click="handler"
         block
         class="btn"
         v-bind="value"
         width="100%"
         height="100%"
         elevation="0"
+        :loading="loading"
+        :disabled="disabled"
+        @click="clickEvent"
+        :type="type"
       >
         <!-- 按钮的文字 -->
         <slot></slot>
@@ -19,7 +22,8 @@
 
 <script lang="ts">
 export default defineComponent({
-  props: ["handler", "value"],
+  props: ["value", "disabled", "type", "clickEvent", "loading"],
+
   name: "normalButton",
   setup() {
     const buttonSelf = ref();
