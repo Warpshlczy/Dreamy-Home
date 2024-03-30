@@ -90,7 +90,7 @@ export default defineComponent({
     font-size: 1.5rem;
   }
   .titleLine {
-    background: url("@/assets/img/dividerBar.png") no-repeat center;
+    background: url("@/assets/images/dividerBar.png") no-repeat center;
     background-size: 50% 60%;
   }
 }
@@ -103,7 +103,7 @@ export default defineComponent({
     margin-bottom: 0;
   }
   .titleLine {
-    background: url("@/assets/img/dividerBar.png") no-repeat center;
+    background: url("@/assets/images/dividerBar.png") no-repeat center;
     background-size: contain;
   }
 }
@@ -116,7 +116,7 @@ export default defineComponent({
     font-size: 3.2rem;
   }
   .titleLine {
-    background: url("@/assets/img/dividerBar.png") no-repeat center;
+    background: url("@/assets/images/dividerBar.png") no-repeat center;
     background-size: contain;
   }
 }

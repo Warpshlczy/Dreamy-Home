@@ -132,7 +132,7 @@ export default defineComponent({
 .main {
   overflow: hidden;
   .background {
-    background: url("@/assets/img/HBG.jpg") no-repeat center;
+    background: url("@/assets/images/HBG.jpg") no-repeat center;
     background-size: $largeDeviceWidth $largeDeviceHeight;
     .theTitleBar {
       animation: titleBarIn 2s ease-out,

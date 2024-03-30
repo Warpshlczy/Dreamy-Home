@@ -50,7 +50,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .btn {
   image-rendering: pixelated;
-  background: url("@/assets/img/button.png") no-repeat center;
+  background: url("@/assets/images/button.png") no-repeat center;
   background-size: contain;
   border-radius: 23%;
   font-size: 3em;

@@ -2,7 +2,7 @@
 
 <template>
   <div class="container d-flex justify-center">
-    <v-img src="~/assets/img/titleBar.png" class="titleBar"></v-img>
+    <v-img src="~/assets/images/titleBar.png" class="titleBar"></v-img>
   </div>
 </template>
 

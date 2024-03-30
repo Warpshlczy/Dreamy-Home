@@ -41,7 +41,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .container {
   image-rendering: pixelated;
-  background: url("@/assets/img/settingMenu.png") no-repeat center;
+  background: url("@/assets/images/settingMenu.png") no-repeat center;
   background-size: 100% 100%;
 }
 </style>

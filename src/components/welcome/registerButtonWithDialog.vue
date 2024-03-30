@@ -12,6 +12,7 @@ export default defineComponent({
     const registerLoading = ref<boolean>(false);
     const pop = ref({
       state: false,
+      type: "",
       message: "",
     });
     const dialogWidth = computed(() => {
@@ -30,7 +31,6 @@ export default defineComponent({
     const methods = {
       async submitUserRegistion() {
         // console.log(validation.value);
-        console.log(registerForm.value.state);
         registerLoading.value = true;
         const result = await useFetch("/api/user/register", {
           method: "POST",
@@ -41,13 +41,14 @@ export default defineComponent({
           },
         });
         registerLoading.value = false;
-        methods.openPop(result.data.value as string);
-        // console.log(result.data.value);
+        methods.openPop(result.data.value);
+        // alert(pop.value.type);
         // useLoading(request, registerLoading, 5000);
       },
-      openPop: (message: string) => {
+      openPop: (data: any) => {
         pop.value.state = true;
-        pop.value.message = message;
+        pop.value.message = data.msg;
+        pop.value.type = data.type;
       },
     };
     return {
@@ -63,9 +64,24 @@ export default defineComponent({
 
 <template>
   <div>
-    <v-snackbar v-model="pop.state" timeout="2000">{{
-      pop.message
-    }}</v-snackbar>
+    <v-snackbar
+      v-model="pop.state"
+      timeout="2000"
+      location="top"
+      variant="flat"
+      z-index="0"
+      color="rgba(0,0,0,0)"
+    >
+      <div class="pop all-full d-flex align-center">
+        <svg-icon
+          :icon="pop.type"
+          width="42px"
+          height="42px"
+          style="color: white"
+        ></svg-icon>
+        <span>{{ pop.message }}</span>
+      </div></v-snackbar
+    >
     <v-dialog :width="dialogWidth">
       <template #activator="{ props: activeBtns }">
         <normal-button class="button" v-bind="activeBtns">注册</normal-button>
@@ -200,8 +216,13 @@ export default defineComponent({
     font-size: 1.5rem;
   }
   .titleLine {
-    background: url("@/assets/img/dividerBar.png") no-repeat center;
+    background: url("@/assets/images/dividerBar.png") no-repeat center;
     background-size: 50% 60%;
+  }
+  .pop {
+    min-height: 10vh;
+    font-size: 1.1em;
+    line-height: 1.1em;
   }
 }
 @media screen and (min-width: map-get($breakPoints,sm)) and (max-width: map-get($breakPoints,md)) {
@@ -213,8 +234,13 @@ export default defineComponent({
     margin-bottom: 0;
   }
   .titleLine {
-    background: url("@/assets/img/dividerBar.png") no-repeat center;
+    background: url("@/assets/images/dividerBar.png") no-repeat center;
     background-size: contain;
+  }
+  .pop {
+    min-height: 8vh;
+    font-size: 1.3em;
+    line-height: 1.3em;
   }
 }
 
@@ -226,11 +252,21 @@ export default defineComponent({
     font-size: 3.2rem;
   }
   .titleLine {
-    background: url("@/assets/img/dividerBar.png") no-repeat center;
+    background: url("@/assets/images/dividerBar.png") no-repeat center;
     background-size: contain;
   }
+  .pop {
+    min-height: 12vh;
+    font-size: 1.5em;
+    line-height: 1.5em;
+  }
 }
-
+.pop {
+  image-rendering: pixelated;
+  background-image: url("@/assets/images/pop_bg.png");
+  background-size: 100% 100%;
+  padding: 2% 5%;
+}
 .dialog {
   .dialogTitle {
     margin-top: 4%;

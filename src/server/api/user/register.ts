@@ -10,21 +10,36 @@ export default defineEventHandler(async (event) => {
   console.log(result);
   try {
     if (!result) {
-      return "未知错误";
+      return {
+        type: "error",
+        msg: "登记失败,未知错误",
+      };
     } else {
       switch (result.code) {
         case 200: {
-          return "登记成功！请前往检查站确认信息进入";
+          return {
+            type: "success",
+            msg: "登记成功！请前往检查站确认!",
+          };
         }
         case 400: {
-          return "登记失败,用户名或通行码不能为空";
+          return {
+            type: "alert",
+            msg: "登记失败,用户名或通行码不能为空",
+          };
         }
         default: {
-          return "未知错误";
+          return {
+            type: "error",
+            msg: "登记失败,服务器请求错误",
+          };
         }
       }
     }
   } catch (e) {
-    return "服务器错误";
+    return {
+      type: "error",
+      msg: "登记失败,服务器错误",
+    };
   }
 });
