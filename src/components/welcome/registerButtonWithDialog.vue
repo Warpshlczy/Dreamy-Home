@@ -3,6 +3,7 @@ import { useDisplay } from "vuetify";
 export default defineComponent({
   setup() {
     const { name } = useDisplay();
+    const formSelf = ref();
     const registerForm = ref({
       state: false,
       userName: "",
@@ -29,6 +30,9 @@ export default defineComponent({
     });
 
     const methods = {
+      continuousVerify: () => {
+        formSelf.value.validate();
+      },
       async submitUserRegistion() {
         // console.log(validation.value);
         registerLoading.value = true;
@@ -51,8 +55,15 @@ export default defineComponent({
         pop.value.type = data.type;
       },
     };
+    watch(
+      () => registerForm.value.password,
+      () => {
+        formSelf.value.validate();
+      }
+    );
     return {
       dialogWidth,
+      formSelf,
       registerForm,
       pop,
       registerLoading,
@@ -88,7 +99,10 @@ export default defineComponent({
       </template>
       <template #default="{ isActive }">
         <normal-menu class="dialog" customised="true"
-          ><v-form v-model:model-value="registerForm.state" @submit.prevent
+          ><v-form
+            v-model:model-value="registerForm.state"
+            @submit.prevent
+            ref="formSelf"
             ><v-card-item class="dialogTitle justify-center"
               >新访客登记处</v-card-item
             >

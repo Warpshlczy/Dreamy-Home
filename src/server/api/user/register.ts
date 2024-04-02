@@ -28,6 +28,13 @@ export default defineEventHandler(async (event) => {
             msg: "登记失败,用户名或通行码不能为空",
           };
         }
+
+        case 408: {
+          return {
+            type: "alert",
+            msg: "昵称已经被其他人注册了！换一个吧",
+          };
+        }
         default: {
           return {
             type: "error",
